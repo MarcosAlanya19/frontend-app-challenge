@@ -17,6 +17,7 @@ import { StatusBar } from "expo-status-bar";
 import { ActivityIndicator, View } from "react-native";
 import "react-native-reanimated";
 import "../global.css";
+import { ErrorBottomSheet } from "@/components/ui/error-bottom-sheet";
 
 const queryClient = new QueryClient();
 
@@ -51,6 +52,7 @@ export default function RootLayout() {
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         </Stack>
+        <ErrorBottomSheet />
         <StatusBar style="dark" />
       </ThemeProvider>
     </QueryClientProvider>
