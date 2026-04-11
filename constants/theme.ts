@@ -1,54 +1,33 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
- */
-
-import { Platform } from "react-native";
-
-const tintColorLight = "#0a7ea4";
-const tintColorDark = "#fff";
-
 export const Colors = {
-  light: {
-    text: "#11181C",
-    background: "#fff",
-    tint: tintColorLight,
-    icon: "#687076",
-    tabIconDefault: "#687076",
-    tabIconSelected: tintColorLight,
-  },
-  dark: {
-    text: "#ECEDEE",
-    background: "#151718",
-    tint: tintColorDark,
-    icon: "#9BA1A6",
-    tabIconDefault: "#9BA1A6",
-    tabIconSelected: tintColorDark,
-  },
+  primary: "#00E3C2",
+  primaryUltraLight: "#B2E7DF",
+  secondary: "#060F26",
+  secondaryLight: "#2D313D",
+  secondaryLighter: "#606B89",
+  gray60: "#686868",
+  gray40: "#A7A7A7",
+  gray25: "#E0E0E0",
+  gray21: "#EEEDED",
+  gray20: "#EFF0F6",
+  gray10: "#F6F6F9",
+  white: "#FFFFFF",
+  green: "#05BE50",
+  greenLighter: "#D9FFE8",
+  red: "#FF3D4A",
+  redLighter: "#F1E1E4",
+  blue: "#456DD3",
+  blueLighter: "#D2E9FF",
+  blueUltraLight: "#E8EEF4",
 };
 
-export const Fonts = Platform.select({
-  ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
-    sans: "system-ui",
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
-    serif: "ui-serif",
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
-    rounded: "ui-rounded",
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
-    mono: "ui-monospace",
-  },
-  default: {
-    sans: "normal",
-    serif: "serif",
-    rounded: "normal",
-    mono: "monospace",
-  },
-  web: {
-    sans: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-    serif: "Georgia, 'Times New Roman', serif",
-    rounded:
-      "'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif",
-    mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-  },
-});
+export const FontFamily = {
+  thin: "Montserrat_100Thin",
+  extraLight: "Montserrat_200ExtraLight",
+  light: "Montserrat_300Light",
+  regular: "Montserrat_400Regular",
+  medium: "Montserrat_500Medium",
+  semiBold: "Montserrat_600SemiBold",
+  bold: "Montserrat_700Bold",
+  extraBold: "Montserrat_800ExtraBold",
+  black: "Montserrat_900Black",
+};
