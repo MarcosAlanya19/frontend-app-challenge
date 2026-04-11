@@ -3,7 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "@/constants/theme";
 import { cn } from "@/lib/cn";
 
-interface CheckboxProps {
+export interface CheckboxProps {
   checked: boolean;
   onPress: () => void;
   label?: string;

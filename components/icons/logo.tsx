@@ -11,7 +11,7 @@ import { SvgWrapper } from "./core/svg-wrapper";
 
 export const Logo = () => (
   <SvgWrapper width={204} height={48} viewBox="0 0 204 48">
-    <G clip-path="url(#clip0_497_5579)">
+    <G clipPath="url(#clip0_497_5579)">
       <Path
         d="M70.4475 23.8763L78.8692 36.5988H73.3005L67.5257 27.5209L64.1914 31.908V36.5988H59.4133V12.5712H64.1914V26.0023L73.4382 12.5712H78.2505L70.4475 23.8763Z"
         fill="#060F26"
@@ -66,8 +66,8 @@ export const Logo = () => (
         y2="14.8853"
         gradientUnits="userSpaceOnUse"
       >
-        <Stop stop-color="#00DFC4" />
-        <Stop offset="0.740331" stop-color="#00B5FF" />
+        <Stop stopColor="#00DFC4" />
+        <Stop offset="0.740331" stopColor="#00B5FF" />
       </LinearGradient>
       <LinearGradient
         id="paint1_linear_497_5579"
@@ -77,8 +77,8 @@ export const Logo = () => (
         y2="47.9394"
         gradientUnits="userSpaceOnUse"
       >
-        <Stop stop-color="#00DFC4" />
-        <Stop offset="0.740331" stop-color="#00B5FF" />
+        <Stop stopColor="#00DFC4" />
+        <Stop offset="0.740331" stopColor="#00B5FF" />
       </LinearGradient>
       <LinearGradient
         id="paint2_linear_497_5579"
@@ -88,8 +88,8 @@ export const Logo = () => (
         y2="47.997"
         gradientUnits="userSpaceOnUse"
       >
-        <Stop stop-color="#00DFC4" />
-        <Stop offset="0.740331" stop-color="#00B5FF" />
+        <Stop stopColor="#00DFC4" />
+        <Stop offset="0.740331" stopColor="#00B5FF" />
       </LinearGradient>
       <ClipPath id="clip0_497_5579">
         <Rect width="204" height="48" fill="white" />
