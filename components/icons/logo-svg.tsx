@@ -9,7 +9,7 @@ import {
 } from "react-native-svg";
 import { SvgWrapper } from "./core/svg-wrapper";
 
-export const Logo = () => (
+export const LogoSVG = () => (
   <SvgWrapper width={204} height={48} viewBox="0 0 204 48">
     <G clipPath="url(#clip0_497_5579)">
       <Path
