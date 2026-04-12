@@ -1,9 +1,9 @@
-import { FormProvider } from "react-hook-form";
-import { Text, TouchableOpacity, View } from "react-native";
-import { router } from "expo-router";
+import { FormCheckbox, FormInput } from "@/components/form";
 import { Button } from "@/components/ui/button";
-import { FormCheckbox } from "@/components/form/form-checkbox";
-import { FormInput } from "@/components/form/form-input";
+import { AppText } from "@/components/ui/text";
+import { router } from "expo-router";
+import { FormProvider } from "react-hook-form";
+import { TouchableOpacity, View } from "react-native";
 import { useLoginForm } from "../hooks/use-login-form";
 
 export function LoginForm() {
@@ -33,12 +33,14 @@ export function LoginForm() {
             isPassword
           />
 
-          <View className="flex-row items-center justify-between">
-            <FormCheckbox name="rememberMe" label="Recordarme" />
+          <View className="flex-row justify-between items-center">
+            <View className="flex-1">
+              <FormCheckbox name="rememberMe" label="Recordarme" />
+            </View>
             <TouchableOpacity>
-              <Text className="font-regular text-sm text-secondary underline">
+              <AppText size="sm" className="underline">
                 ¿Olvidaste tu contraseña?
-              </Text>
+              </AppText>
             </TouchableOpacity>
           </View>
         </View>
@@ -51,15 +53,11 @@ export function LoginForm() {
           />
 
           <View className="flex-row justify-center">
-            <Text className="font-regular text-base text-gray-60">
-              ¿No tienes cuenta?
-            </Text>
+            <AppText color="gray-60">¿No tienes cuenta? </AppText>
             <TouchableOpacity
               onPress={() => router.push("/(onboarding)/personal-data")}
             >
-              <Text className="font-regular text-base text-secondary underline">
-                Regístrate aquí
-              </Text>
+              <AppText className="underline">Regístrate aquí</AppText>
             </TouchableOpacity>
           </View>
         </View>

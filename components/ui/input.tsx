@@ -1,11 +1,11 @@
 import { useState } from "react";
 import {
   View,
-  Text,
   TextInput,
   TextInputProps,
   TouchableOpacity,
 } from "react-native";
+import { AppText } from "@/components/ui/text";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "@/constants/theme";
 import { cn } from "@/lib/cn";
@@ -30,18 +30,24 @@ export function Input({
   return (
     <View className="gap-1">
       {label && (
-        <Text className="font-regular text-sm text-gray-60">{label}</Text>
+        <AppText size="sm" weight="regular" color="gray-60">
+          {label}
+        </AppText>
       )}
       <View
-        className={cn("flex-row items-center h-12 px-3 rounded-lg border bg-white", {
-          "border-red": !!error,
-          "border-primary": !error && focused,
-          "border-gray-25": !error && !focused,
-        })}
+        className={cn(
+          "flex-row items-center h-12 px-3 rounded-lg border bg-white",
+          {
+            "border-red": !!error,
+            "border-primary": !error && focused,
+            "border-gray-25": !error && !focused,
+          },
+        )}
       >
         <TextInput
           className="flex-1 font-regular text-base text-secondary"
           placeholderTextColor={Colors.gray40}
+          placeholderClassName="text-base"
           secureTextEntry={secure}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
@@ -60,7 +66,9 @@ export function Input({
         )}
       </View>
       {error && (
-        <Text className="font-regular text-xs text-red">{error}</Text>
+        <AppText size="sm" weight="regular" color="red">
+          {error}
+        </AppText>
       )}
     </View>
   );

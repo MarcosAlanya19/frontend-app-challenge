@@ -18,7 +18,7 @@ export function Button({
     <TouchableOpacity
       disabled={disabled}
       activeOpacity={0.8}
-      className={cn("h-14 rounded-2xl items-center justify-center", {
+      className={cn("h-14 w-full rounded-md items-center justify-center", {
         "bg-primary-ultra-light": disabled,
         "bg-primary": !disabled && variant === "primary",
         "bg-secondary": !disabled && variant === "secondary",
@@ -28,7 +28,8 @@ export function Button({
       <Text
         className={cn("font-semibold text-base", {
           "text-gray-40": disabled,
-          "text-white": !disabled,
+          "text-white": !disabled && variant === "secondary",
+          "text-secondary": !disabled && variant === "primary",
         })}
       >
         {label.toUpperCase()}

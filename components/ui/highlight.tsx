@@ -1,5 +1,6 @@
-import { View, Text } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { View } from "react-native";
+import { AppText } from "@/components/ui/text";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { Colors } from "@/constants/theme";
 import { cn } from "@/lib/cn";
 
@@ -28,16 +29,15 @@ export function Highlight({ message, variant = "info" }: HighlightProps) {
   const { container, iconColor } = variantConfig[variant];
 
   return (
-    <View className={cn("flex-row gap-3 p-3 rounded-xl", container)}>
-      <Ionicons
-        name="information-circle-outline"
-        size={20}
-        color={iconColor}
-        style={{ marginTop: 1 }}
-      />
-      <Text className="flex-1 font-regular text-sm text-secondary leading-5">
-        {message}
-      </Text>
+    <View
+      className={cn("flex-row gap-3 p-3 rounded-xl items-center", container)}
+    >
+      <MaterialIcons name="info-outline" size={20} color={iconColor} />
+      <View className="flex-1">
+        <AppText size="sm" weight="medium">
+          {message}
+        </AppText>
+      </View>
     </View>
   );
 }

@@ -17,7 +17,7 @@ export function useLoginForm() {
 
   const onSubmit = async (data: LoginFormData) => {
     await login(data);
-    router.replace("/(tabs)");
+    router.replace("/(auth)");
   };
 
   return { methods, onSubmit };

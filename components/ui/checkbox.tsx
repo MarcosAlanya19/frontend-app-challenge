@@ -1,7 +1,8 @@
-import { Pressable, View, Text } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { AppText } from "@/components/ui/text";
 import { Colors } from "@/constants/theme";
 import { cn } from "@/lib/cn";
+import Entypo from "@expo/vector-icons/Entypo";
+import { Pressable, View } from "react-native";
 
 export interface CheckboxProps {
   checked: boolean;
@@ -18,13 +19,9 @@ export function Checkbox({ checked, onPress, label }: CheckboxProps) {
           "bg-white border-gray-25": !checked,
         })}
       >
-        {checked && (
-          <Ionicons name="checkmark" size={14} color={Colors.white} />
-        )}
+        {checked && <Entypo name="check" size={14} color={Colors.white} />}
       </View>
-      {label && (
-        <Text className="font-regular text-base text-secondary">{label}</Text>
-      )}
+      {label && <AppText weight="regular">{label}</AppText>}
     </Pressable>
   );
 }

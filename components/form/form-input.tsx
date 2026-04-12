@@ -1,18 +1,24 @@
 import { useController, useFormContext } from "react-hook-form";
 import { Input, InputProps } from "@/components/ui/input";
 
-interface FormInputProps extends Omit<InputProps, "value" | "onChangeText" | "onBlur" | "error"> {
+interface FormInputProps extends Omit<
+  InputProps,
+  "value" | "onChangeText" | "onBlur" | "error"
+> {
   name: string;
+  formatter?: (value: string) => string;
 }
 
-export function FormInput({ name, ...props }: FormInputProps) {
+export function FormInput({ name, formatter, ...props }: FormInputProps) {
   const { control } = useFormContext();
   const { field, fieldState } = useController({ name, control });
 
   return (
     <Input
       value={field.value}
-      onChangeText={field.onChange}
+      onChangeText={(text) =>
+        field.onChange(formatter ? formatter(text) : text)
+      }
       onBlur={field.onBlur}
       error={fieldState.error?.message}
       {...props}
