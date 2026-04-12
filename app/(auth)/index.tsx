@@ -1,7 +1,8 @@
-import { KeyboardAvoidingView, Platform, View, Text } from "react-native";
+import { KeyboardAvoidingView, Platform, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Logo } from "@/components/icons/logo";
+import { LogoSVG } from "@/components/icons/logo-svg";
 import { LoginForm } from "@/modules/auth/components/login-form";
+import { AppText } from "@/components/ui/text";
 
 export default function LoginScreen() {
   return (
@@ -10,10 +11,12 @@ export default function LoginScreen() {
         className="flex-1"
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <View className="flex-1 px-base pt-24 pb-16">
+        <View className="flex-1  px-xl pt-24 pb-16">
           <View className="items-center gap-xl mb-5xl">
-            <Logo />
-            <Text className="font-bold text-xl text-black">Inicia sesión</Text>
+            <LogoSVG />
+            <AppText size="xl" weight="bold">
+              Inicia sesión
+            </AppText>
           </View>
           <LoginForm />
         </View>
