@@ -1,44 +1,41 @@
-import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ErrorBottomSheet } from "@/components/ui/error-bottom-sheet";
+import { useAuthStore } from "@/stores/use-auth-store";
 import {
-  useFonts,
-  Montserrat_100Thin,
-  Montserrat_200ExtraLight,
-  Montserrat_300Light,
   Montserrat_400Regular,
   Montserrat_500Medium,
   Montserrat_600SemiBold,
   Montserrat_700Bold,
-  Montserrat_800ExtraBold,
-  Montserrat_900Black,
+  useFonts,
 } from "@expo-google-fonts/montserrat";
+import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
+import {
+  MutationCache,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { ActivityIndicator, View } from "react-native";
 import "react-native-reanimated";
 import "../global.css";
-import { ErrorBottomSheet } from "@/components/ui/error-bottom-sheet";
 
-const queryClient = new QueryClient();
-
-export const unstable_settings = {
-  anchor: "(auth)",
-};
+const queryClient = new QueryClient({
+  mutationCache: new MutationCache({
+    onError: () => {},
+  }),
+});
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
-    Montserrat_100Thin,
-    Montserrat_200ExtraLight,
-    Montserrat_300Light,
     Montserrat_400Regular,
     Montserrat_500Medium,
     Montserrat_600SemiBold,
     Montserrat_700Bold,
-    Montserrat_800ExtraBold,
-    Montserrat_900Black,
   });
 
-  if (!fontsLoaded) {
+  const { hasHydrated } = useAuthStore();
+
+  if (!fontsLoaded || !hasHydrated) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <ActivityIndicator />
@@ -49,10 +46,12 @@ export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider value={DefaultTheme}>
-        <Stack>
-          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="(onboarding)" options={{ headerShown: false }} />
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="index" />
+          <Stack.Screen name="(auth)" />
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="(onboarding)" />
+          <Stack.Screen name="(transactions)" />
         </Stack>
         <ErrorBottomSheet />
         <StatusBar style="dark" />

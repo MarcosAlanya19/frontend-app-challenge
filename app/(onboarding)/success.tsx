@@ -5,7 +5,9 @@ import { useLocalSearchParams, router } from "expo-router";
 import { Button } from "@/components/ui/button";
 
 export default function SuccessScreen() {
-  const { name } = useLocalSearchParams<{ name: string }>();
+  const { name } = useLocalSearchParams<{
+    name: string;
+  }>();
 
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -42,7 +44,8 @@ export default function SuccessScreen() {
               con la mejor tasa del mercado
             </AppText>
           </View>
-          <Button label="Continuar" onPress={() => router.replace("/(auth)")} />
+
+          <Button label="Continuar" onPress={() => router.replace("/(tabs)")} />
         </View>
       </View>
     </SafeAreaView>

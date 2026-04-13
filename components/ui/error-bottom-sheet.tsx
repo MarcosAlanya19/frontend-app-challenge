@@ -1,20 +1,75 @@
-import { Linking, Modal, Text, TouchableOpacity, View } from "react-native";
+import { useEffect, useRef, useState } from "react";
+import {
+  Animated,
+  Linking,
+  Modal,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useErrorStore } from "@/stores/use-error-store";
 
 const SUPPORT_WHATSAPP = "https://wa.me/51900000000";
+const SHEET_HEIGHT = 300;
 
 export function ErrorBottomSheet() {
   const { error, clearError } = useErrorStore();
+  const [modalVisible, setModalVisible] = useState(false);
+  const translateY = useRef(new Animated.Value(SHEET_HEIGHT)).current;
+  const backdropOpacity = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (error) {
+      setModalVisible(true);
+      Animated.parallel([
+        Animated.timing(backdropOpacity, {
+          toValue: 1,
+          duration: 250,
+          useNativeDriver: true,
+        }),
+        Animated.spring(translateY, {
+          toValue: 0,
+          useNativeDriver: true,
+          damping: 20,
+          stiffness: 180,
+        }),
+      ]).start();
+    } else {
+      Animated.parallel([
+        Animated.timing(backdropOpacity, {
+          toValue: 0,
+          duration: 200,
+          useNativeDriver: true,
+        }),
+        Animated.timing(translateY, {
+          toValue: SHEET_HEIGHT,
+          duration: 200,
+          useNativeDriver: true,
+        }),
+      ]).start(() => setModalVisible(false));
+    }
+  }, [error]);
 
   return (
     <Modal
-      visible={!!error}
+      visible={modalVisible}
       transparent
-      animationType="slide"
+      animationType="none"
       onRequestClose={clearError}
     >
-      <View className="flex-1 justify-end bg-black/40">
-        <View className="bg-white rounded-t-2xl p-6 items-center gap-4">
+      <Animated.View
+        style={{ flex: 1, justifyContent: "flex-end", opacity: backdropOpacity }}
+        className="bg-black/40"
+      >
+        <TouchableOpacity
+          style={{ flex: 1 }}
+          activeOpacity={1}
+          onPress={clearError}
+        />
+        <Animated.View
+          style={{ transform: [{ translateY }] }}
+          className="bg-white rounded-t-2xl p-6 items-center gap-4"
+        >
           <Text className="font-bold text-xl text-secondary text-center">
             {error?.title}
           </Text>
@@ -36,8 +91,8 @@ export function ErrorBottomSheet() {
               </Text>
             </Text>
           </TouchableOpacity>
-        </View>
-      </View>
+        </Animated.View>
+      </Animated.View>
     </Modal>
   );
 }

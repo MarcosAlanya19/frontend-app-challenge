@@ -1,5 +1,5 @@
 import bankAccounts from "@/mocks/bankAccounts.json";
-import { EDocumentType } from "../enums/document-type.enum";
+import { EDocumentType } from "@/enums/document-type";
 
 export const DOC_TYPE_OPTIONS = [
   { label: "DNI", value: EDocumentType.DNI },

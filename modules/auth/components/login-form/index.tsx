@@ -1,18 +1,26 @@
 import { FormCheckbox, FormInput } from "@/components/form";
 import { Button } from "@/components/ui/button";
 import { AppText } from "@/components/ui/text";
-import { router } from "expo-router";
-import { FormProvider } from "react-hook-form";
+import { FormProvider, UseFormReturn, useFormState } from "react-hook-form";
 import { TouchableOpacity, View } from "react-native";
-import { useLoginForm } from "../hooks/use-login-form";
+import { ILoginFormData } from "./index.schema";
 
-export function LoginForm() {
-  const { methods, onSubmit } = useLoginForm();
+interface IProps {
+  methods: UseFormReturn<ILoginFormData>;
+  onSubmit: () => void;
+  onForgotPassword: () => void;
+  onRegister: () => void;
+}
 
-  const {
-    handleSubmit,
-    formState: { isValid, isSubmitting },
-  } = methods;
+export const LoginForm = ({
+  methods,
+  onSubmit,
+  onForgotPassword,
+  onRegister,
+}: IProps) => {
+  const { errors, isValid, isSubmitting } = useFormState({
+    control: methods.control,
+  });
 
   return (
     <FormProvider {...methods}>
@@ -33,11 +41,11 @@ export function LoginForm() {
             isPassword
           />
 
-          <View className="flex-row justify-between items-center">
+          <View className="flex-row justify-between items-center pb-2">
             <View className="flex-1">
               <FormCheckbox name="rememberMe" label="Recordarme" />
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={onForgotPassword}>
               <AppText size="sm" className="underline">
                 ¿Olvidaste tu contraseña?
               </AppText>
@@ -46,17 +54,20 @@ export function LoginForm() {
         </View>
 
         <View className="gap-sm">
+          {errors.root && (
+            <AppText size="sm" color="red" className="text-center">
+              {errors.root.message}
+            </AppText>
+          )}
           <Button
             label="Inicia sesión"
             disabled={!isValid || isSubmitting}
-            onPress={handleSubmit(onSubmit)}
+            onPress={onSubmit}
           />
 
           <View className="flex-row justify-center">
             <AppText color="gray-60">¿No tienes cuenta? </AppText>
-            <TouchableOpacity
-              onPress={() => router.push("/(onboarding)/personal-data")}
-            >
+            <TouchableOpacity onPress={onRegister}>
               <AppText className="underline">Regístrate aquí</AppText>
             </TouchableOpacity>
           </View>
@@ -64,4 +75,4 @@ export function LoginForm() {
       </View>
     </FormProvider>
   );
-}
+};
