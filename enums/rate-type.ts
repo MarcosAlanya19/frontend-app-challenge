@@ -1,4 +1,4 @@
-export enum RateType {
+export enum ERateType {
   BUY = "buy",
   SELL = "sell",
 }

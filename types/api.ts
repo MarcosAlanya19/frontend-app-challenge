@@ -1,7 +1,12 @@
 export interface APIError {
   success: false;
   data: {
-    name: "DUPLICATE_DNI" | "INVALID_PHONE" | "SERVER_ERROR";
+    name:
+      | "DUPLICATE_DNI"
+      | "DUPLICATE_PHONE"
+      | "DUPLICATE_EMAIL"
+      | "INVALID_PHONE"
+      | "SERVER_ERROR";
     title: string;
     message: string;
   };

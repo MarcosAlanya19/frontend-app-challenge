@@ -1,9 +1,9 @@
-export enum Currency {
+export enum ECurrency {
   USD = "USD",
   PEN = "PEN",
 }
 
-export const CURRENCY_LABEL: Record<Currency, string> = {
-  [Currency.USD]: "Dólares",
-  [Currency.PEN]: "Soles",
+export const CURRENCY_LABEL: Record<ECurrency, string> = {
+  [ECurrency.USD]: "Dólares",
+  [ECurrency.PEN]: "Soles",
 };
