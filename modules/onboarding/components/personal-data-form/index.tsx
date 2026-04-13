@@ -5,23 +5,24 @@ import { FormPickerInput } from "@/components/form/form-picker-input";
 import { Button } from "@/components/ui/button";
 import { Highlight } from "@/components/ui/highlight";
 import { AppText } from "@/components/ui/text";
-import { FormProvider } from "react-hook-form";
+import { FormProvider, UseFormReturn, useFormState } from "react-hook-form";
 import { ScrollView, View } from "react-native";
 import {
   DOC_TYPE_OPTIONS,
   PREVIOUS_EXCHANGE_OPTIONS,
-} from "../constants/options";
-import { usePersonalDataForm } from "../hooks/use-personal-data-form";
+} from "../../constants/options";
+import { PersonalDataFormData } from "./index.schema";
 
-export const PersonalDataForm = () => {
-  const { form, onSubmit } = usePersonalDataForm();
-  const {
-    handleSubmit,
-    formState: { isValid, isSubmitting },
-  } = form;
+interface IProps {
+  methods: UseFormReturn<PersonalDataFormData>;
+  onSubmit: () => void;
+}
+
+export function PersonalDataForm({ methods, onSubmit }: IProps) {
+  const { isValid, isSubmitting } = useFormState({ control: methods.control });
 
   return (
-    <FormProvider {...form}>
+    <FormProvider {...methods}>
       <View className="flex-1">
         <ScrollView
           className="flex-1 px-xl"
@@ -108,11 +109,11 @@ export const PersonalDataForm = () => {
             <Button
               label="Registrarme"
               disabled={!isValid || isSubmitting}
-              onPress={handleSubmit(onSubmit)}
+              onPress={onSubmit}
             />
           </View>
         </View>
       </View>
     </FormProvider>
   );
-};
+}
