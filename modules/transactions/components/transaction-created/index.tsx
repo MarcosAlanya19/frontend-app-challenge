@@ -8,11 +8,13 @@ import { DiscountsBanner } from "./discounts-banner";
 
 interface TransactionCreatedProps {
   receiveAmount: string;
+  transactionId: string;
   onGoHome: () => void;
 }
 
 export function TransactionCreated({
   receiveAmount,
+  transactionId,
   onGoHome,
 }: TransactionCreatedProps) {
   return (
@@ -54,7 +56,7 @@ export function TransactionCreated({
               <DetailRow
                 labelSize="base"
                 label="Código Kambista"
-                value="km20ttfff"
+                value={transactionId}
               />
               <AppText size="base" color="secondary">
                 *Usa tu código para dar seguimiento a tu operación.

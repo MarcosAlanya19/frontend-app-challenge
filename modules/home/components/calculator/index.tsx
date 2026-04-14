@@ -15,6 +15,7 @@ import { CouponInput } from "./coupon-input";
 import { PromoBanner } from "./promo-banner";
 import { RateTabs } from "./rate-tabs";
 import { SavingsRow } from "./savings-row";
+import { useSwapAnimation } from "./use-swap-animation";
 
 type TransactionData = Omit<ITransactionSummary, "buyRate" | "sellRate">;
 
@@ -51,6 +52,8 @@ export function Calculator({
   const receiveCurrency = isBuy ? ECurrency.USD : ECurrency.PEN;
   const rate = (isBuy ? exchangeRateData?.bid : exchangeRateData?.ask) ?? 0;
   const koins = calcKoins(parseAmount(sendAmount), rate, isBuy);
+
+  const { rotate, triggerSwapAnimation } = useSwapAnimation(isCalculating);
 
   const performCalculate = async (
     value: string,
@@ -91,9 +94,21 @@ export function Calculator({
     debouncedCalculate(value, EActiveField.RECEIVE, isBuy);
   };
 
+  const handleRateTypeChange = (newRateType: ERateType) => {
+    const newIsBuy = newRateType === ERateType.BUY;
+    setRateType(newRateType);
+    triggerSwapAnimation();
+    const currentValue =
+      lastActiveField === EActiveField.SEND ? sendAmount : receiveAmount;
+    if (parseAmount(currentValue)) {
+      performCalculate(currentValue, lastActiveField, newIsBuy);
+    }
+  };
+
   const handleSwap = () => {
     const newIsBuy = !isBuy;
     setRateType(newIsBuy ? ERateType.BUY : ERateType.SELL);
+    triggerSwapAnimation();
     const currentValue =
       lastActiveField === EActiveField.SEND ? sendAmount : receiveAmount;
     if (parseAmount(currentValue)) {
@@ -137,7 +152,7 @@ export function Calculator({
             sellRate={exchangeRateData?.ask ?? 0}
             isLoading={isLoading}
             rateType={rateType}
-            onRateTypeChange={setRateType}
+            onRateTypeChange={handleRateTypeChange}
           />
 
           <CalculatorInput
@@ -153,7 +168,8 @@ export function Calculator({
             isReceiveCalculating={
               isCalculating && lastActiveField === EActiveField.SEND
             }
-            onSwap={handleSwap}
+            rotate={rotate}
+            onSwapPress={handleSwap}
           />
 
           <SavingsRow savings={savings} koins={koins} />

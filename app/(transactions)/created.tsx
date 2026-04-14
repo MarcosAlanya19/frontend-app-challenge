@@ -3,7 +3,7 @@ import { useTransactionStore } from "@/stores/use-transaction-store";
 import { router } from "expo-router";
 
 export default function TransactionCreatedScreen() {
-  const { summary, reset } = useTransactionStore();
+  const { summary, transactionId, reset } = useTransactionStore();
 
   const receiveAmount = summary?.receiveAmount ?? "-";
 
@@ -13,6 +13,6 @@ export default function TransactionCreatedScreen() {
   };
 
   return (
-    <TransactionCreated receiveAmount={receiveAmount} onGoHome={handleGoHome} />
+    <TransactionCreated receiveAmount={receiveAmount} transactionId={transactionId ?? "-"} onGoHome={handleGoHome} />
   );
 }

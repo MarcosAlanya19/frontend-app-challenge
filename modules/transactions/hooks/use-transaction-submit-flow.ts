@@ -7,7 +7,7 @@ import { useSubmitVoucher } from "./use-submit-voucher";
 export function useTransactionSubmitFlow() {
   const createTransaction = useCreateTransaction();
   const submitVoucher = useSubmitVoucher();
-  const { summary, sourceBankId, destinationAccount, sourceFundId } =
+  const { summary, sourceBankId, destinationAccount, sourceFundId, setTransactionId } =
     useTransactionStore();
 
   const handleFinishTransaction = async (data: ITransactionForm) => {
@@ -24,6 +24,8 @@ export function useTransactionSubmitFlow() {
       });
 
       if (!transaction) return;
+
+      setTransactionId(transaction.transactionId);
 
       await submitVoucher.handle({
         payload: {

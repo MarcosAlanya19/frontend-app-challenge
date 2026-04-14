@@ -14,35 +14,24 @@ export function TransactionSummary({ summary }: IProps) {
   const receiveSymbol = CURRENCY_SYMBOL[summary.receiveCurrency];
 
   return (
-    <View className="mx-6 mt-4 rounded-md overflow-hidden bg-white">
-      <View className="px-base py-md">
-        <SummaryRow
-          label="Tú envías"
-          value={`${sendSymbol} ${summary.sendAmount}`}
-        />
-        <SummaryRow
-          label="Tú recibes"
-          value={`${receiveSymbol} ${summary.receiveAmount}`}
-        />
-        {summary.coupon ? (
-          <>
-            <View
-              style={{
-                height: 1,
-                backgroundColor: Colors.gray25,
-                marginVertical: 8,
-              }}
-            />
-            <SummaryRow label="Cupón aplicado" value={summary.coupon} />
-          </>
-        ) : null}
-      </View>
+    <View className="mx-6 py-3.5 px-6 rounded-md overflow-hidden bg-white">
+      <SummaryRow
+        label="Tú envías"
+        value={`${sendSymbol} ${summary.sendAmount}`}
+      />
+      <SummaryRow
+        label="Tú recibes"
+        value={`${receiveSymbol} ${summary.receiveAmount}`}
+      />
+      {summary.coupon ? (
+        <SummaryRow label="Cupón aplicado" value={summary.coupon} />
+      ) : null}
 
       <View
-        className="flex-row justify-between items-center px-base py-sm"
+        className="flex-row justify-between items-center py-sm mt-1"
         style={{
-          borderTopWidth: summary.coupon ? 0 : 1,
-          borderTopColor: Colors.gray25,
+          borderTopWidth: 1,
+          borderTopColor: Colors.secondary,
         }}
       >
         <AppText size="sm" weight="semibold" color="secondary">
