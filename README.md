@@ -1,10 +1,18 @@
 # Documentacion Tecnica - Kambista App
 
+## Descarga
+
+- **APK Android**: [Descargar desde Expo](https://expo.dev/accounts/marcosalanya/projects/frontend-app-challenge/builds/2761a22d-4d0b-4e5c-9745-a604a7bdc145)
+- El archivo `app.apk` tambien se encuentra en la raiz del proyecto para instalacion directa.
+
 ## Instrucciones de ejecucion
 
 ```bash
 # Instalar dependencias
 npm install
+
+# Copiar variables de entorno
+cp .env.example .env
 
 # Iniciar servidor de desarrollo
 npx expo start
@@ -18,6 +26,36 @@ npx expo start --ios
 # Generar APK
 eas build -p android --profile preview
 ```
+
+## Variables de entorno
+
+| Variable | Descripcion |
+|----------|-------------|
+| `EXPO_PUBLIC_BASE_URL` | URL base de la API de Kambista |
+
+Copiar `.env.example` a `.env` y ya tendras configurado el entorno.
+
+## Credenciales de prueba
+
+### Login directo
+| Campo | Valor |
+|-------|-------|
+| Email | `marcos@gmail.com` |
+| Contrasena | `123456` |
+
+### Registro de nuevo usuario
+Al completar el onboarding, el sistema genera las credenciales automaticamente:
+
+| Campo | Valor |
+|-------|-------|
+| Email | `{nombre}@kambista.com` (ej: si el nombre es "Juan Perez" -> `juan@kambista.com`) |
+| Contrasena | `123456` |
+
+> Una vez registrado, usar estas credenciales para iniciar sesion desde la pantalla de login.
+
+### Cerrar sesion
+
+Desde la tab **Perfil** (icono de usuario en la barra inferior) se puede cerrar sesion en cualquier momento.
 
 ## Arquitectura del proyecto
 
@@ -44,6 +82,59 @@ modules/
 stores/                       # Estado global Zustand
 types/                        # Tipos compartidos (APIError)
 ```
+
+### Flujo de navegacion
+
+```
+index.tsx
+  |
+  +-- /(auth)/index          Login
+  |         |
+  |         +-- /(tabs)      App principal (post-login)
+  |
+  +-- /(onboarding)/personal-data    Formulario de registro
+            |
+            +-- /(onboarding)/success    Registro exitoso
+                      |
+                      +-- /(tabs)    App principal
+```
+
+### Flujo de transaccion
+
+```
+(tabs)/index  ->  (transactions)/create
+                        |
+                        +-- transfer-data
+                              |
+                              +-- attach-voucher
+                                    |
+                                    +-- created  ->  (tabs)/index
+```
+
+El layout `(transactions)/_layout.tsx` envuelve todas las pantallas del flujo con un `FormProvider` compartido, permitiendo que el estado del formulario persista entre pasos sin pasarse por props ni por store.
+
+### Capas de un modulo
+
+Cada modulo dentro de `modules/` sigue la misma estructura interna:
+
+```
+modules/<nombre>/
+  components/        # Componentes de presentacion del modulo
+  hooks/             # Hooks que conectan servicios con el estado
+  services/          # Llamadas HTTP o mocks (*.service.ts)
+  constants/         # Constantes propias del modulo
+  lib/               # Funciones puras de logica de negocio
+  types/             # Interfaces y tipos del modulo
+```
+
+### Patron de formulario
+
+Todos los formularios siguen el mismo patron:
+
+1. `index.schema.ts` define el schema Zod y el tipo inferido
+2. El componente instancia `useForm` con `zodResolver` y `mode: "onChange"`
+3. Se envuelve con `<FormProvider>` para que los campos hijos usen `useFormContext`
+4. Los componentes `Form*` (FormInput, FormSelect, etc.) leen el contexto internamente — no reciben `register` ni `control` como props, lo cual da como resultado componentes mas limpios.
 
 ## Decisiones tecnicas
 
@@ -115,6 +206,7 @@ Cada formulario tiene su archivo `index.schema.ts` con el schema de Zod, lo que 
 ## Animaciones
 
 - **Bottom sheets** (select, errores, agregar cuenta): `SlideInDown`/`SlideOutDown` + `FadeIn`/`FadeOut` con `react-native-reanimated`
+- **Swap de divisas**: hook `useSwapAnimation` con `Animated.Value` nativo — rotacion de 360 grados al cambiar tipo de cambio, y spin continuo mientras se calcula
 - **Error bottom sheet**: animacion spring con `Animated.timing` nativo
 
 ## Librerias principales
