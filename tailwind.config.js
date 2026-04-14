@@ -14,8 +14,11 @@ module.exports = {
         "gray-40": "#A7A7A7",
         "gray-25": "#E0E0E0",
         "gray-21": "#EEEDED",
+        "gray-23": "#E0E4EB",
         "gray-20": "#EFF0F6",
         "gray-10": "#F6F6F9",
+        "gray-66": "#666666",
+        "gray-background": "#f7f6f8",
 
         // Primary
         primary: "#00E3C2",
@@ -35,9 +38,13 @@ module.exports = {
         "red-lighter": "#F1E1E4",
 
         // Informative
-        blue: "#456DD3",
+        blue: "#082774", // En el figma figura otro color, pero en el proyecto se utiliza este mismo
         "blue-lighter": "#D2E9FF",
         "blue-ultra-light": "#E8EEF4",
+
+        // Brown
+        brown: "#7B3F0A",
+        "brown-light": "#F9F0E9",
       },
       fontFamily: {
         regular: ["Montserrat_400Regular"],
@@ -49,6 +56,7 @@ module.exports = {
         sm: 12,
         base: 14,
         md: 16,
+        lg: 18,
         xl: 20,
         "2xl": 24,
       },

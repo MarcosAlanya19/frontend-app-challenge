@@ -59,10 +59,12 @@ export function PersonalDataForm({ methods, onSubmit }: IProps) {
             </View>
           </View>
 
-          <Highlight
-            variant="info"
-            message="Tu documento de identidad debe coincidir con tus datos para evitar inconvenientes al momento de hacer una primera operación"
-          />
+          <Highlight variant="info">
+            <AppText size="sm" color="blue">
+              Tu documento de identidad debe coincidir con tus datos para evitar
+              inconvenientes al momento de hacer una primera operación
+            </AppText>
+          </Highlight>
 
           <View className="flex-row gap-sm">
             <View className="flex-1">

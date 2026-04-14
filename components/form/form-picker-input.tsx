@@ -60,7 +60,7 @@ export function FormPickerInput({
         onPress={handleOpen}
         activeOpacity={0.8}
         className={cn(
-          "flex-row items-center h-12 px-3 rounded-lg border bg-white",
+          "flex-row items-center h-4xl px-5 rounded-lg border bg-white",
           {
             "border-red": !!fieldState.error,
             "border-gray-25": !fieldState.error,
@@ -70,6 +70,7 @@ export function FormPickerInput({
         <View className="flex-1">
           <AppText
             weight="regular"
+            size="base"
             color={selectedLabel ? "secondary" : "gray-40"}
           >
             {selectedLabel || placeholder || ""}

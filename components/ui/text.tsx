@@ -5,6 +5,7 @@ const sizeClasses = {
   sm: "text-sm",
   base: "text-base",
   md: "text-md",
+  lg: "text-lg",
   xl: "text-xl",
   "2xl": "text-2xl",
 } as const;
@@ -23,10 +24,12 @@ const colorClasses = {
   "secondary-lighter": "text-secondary-lighter",
   "gray-40": "text-gray-40",
   "gray-60": "text-gray-60",
+  "gray-66": "text-gray-66",
   red: "text-red",
   green: "text-green",
   blue: "text-blue",
   white: "text-white",
+  brown: "text-brown",
 } as const;
 
 export type TextSize = keyof typeof sizeClasses;

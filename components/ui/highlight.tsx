@@ -1,13 +1,14 @@
-import { View } from "react-native";
 import { AppText } from "@/components/ui/text";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { Colors } from "@/constants/theme";
 import { cn } from "@/lib/cn";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { ReactNode } from "react";
+import { View } from "react-native";
 
 type HighlightVariant = "info" | "warning";
 
 interface HighlightProps {
-  message: string;
+  children: ReactNode;
   variant?: HighlightVariant;
 }
 
@@ -20,12 +21,12 @@ const variantConfig: Record<
     iconColor: Colors.blue,
   },
   warning: {
-    container: "bg-red-lighter",
-    iconColor: "#92400E",
+    container: "bg-brown-light",
+    iconColor: Colors.brown,
   },
 };
 
-export function Highlight({ message, variant = "info" }: HighlightProps) {
+export function Highlight({ children, variant = "info" }: HighlightProps) {
   const { container, iconColor } = variantConfig[variant];
 
   return (
@@ -33,9 +34,10 @@ export function Highlight({ message, variant = "info" }: HighlightProps) {
       className={cn("flex-row gap-3 p-3 rounded-xl items-center", container)}
     >
       <MaterialIcons name="info-outline" size={20} color={iconColor} />
+
       <View className="flex-1">
         <AppText size="sm" weight="medium">
-          {message}
+          {children}
         </AppText>
       </View>
     </View>

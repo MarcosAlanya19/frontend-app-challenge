@@ -27,3 +27,6 @@ export const dateToDMY = (date: Date): string =>
 /** Converts a DD/MM/YYYY string to a Date object (returns today if invalid) */
 export const dmyToDate = (dmy: string): Date =>
   isValidDate(dmy) ? parseDMY(dmy).toDate() : new Date();
+
+/** Returns current time formatted as HH:mm */
+export const getUpdateTime = (): string => dayjs().format("HH:mm");

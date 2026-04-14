@@ -5,9 +5,11 @@ export const Colors = {
   secondaryLight: "#2D313D",
   secondaryLighter: "#606B89",
   gray60: "#686868",
+  gray66: "#666666",
   gray40: "#A7A7A7",
   gray25: "#E0E0E0",
   gray21: "#EEEDED",
+  gray23: "#E0E4EB",
   gray20: "#EFF0F6",
   gray10: "#F6F6F9",
   white: "#FFFFFF",
@@ -15,9 +17,11 @@ export const Colors = {
   greenLighter: "#D9FFE8",
   red: "#FF3D4A",
   redLighter: "#F1E1E4",
-  blue: "#456DD3",
+  blue: "#082774",
   blueLighter: "#D2E9FF",
   blueUltraLight: "#E8EEF4",
+  brown: "#7B3F0A",
+  brownLight: "#F9F0E9",
 };
 
 export const FontFamily = {

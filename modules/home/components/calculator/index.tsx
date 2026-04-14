@@ -6,7 +6,7 @@ import { ERateType } from "@/enums/rate-type";
 import { useDebounce } from "@/hooks/use-debounce";
 import { calcKoins, parseAmount } from "@/modules/home/lib/calculator";
 import { IExchangeRate } from "@/modules/home/types/IExchangeRate.type";
-import { TransactionSummary } from "@/modules/transactions/types";
+import { ITransactionSummary } from "@/modules/transactions/types";
 import { useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -16,7 +16,7 @@ import { PromoBanner } from "./promo-banner";
 import { RateTabs } from "./rate-tabs";
 import { SavingsRow } from "./savings-row";
 
-type TransactionData = Omit<TransactionSummary, "buyRate" | "sellRate">;
+type TransactionData = Omit<ITransactionSummary, "buyRate" | "sellRate">;
 
 interface CalculatorProps {
   exchangeRateData: IExchangeRate | undefined;
@@ -164,7 +164,11 @@ export function Calculator({
         </View>
 
         <View className="mt-4">
-          <Button label="Iniciar operación" onPress={handleStartTransaction} />
+          <Button
+            label="Iniciar operación"
+            onPress={handleStartTransaction}
+            disabled={isLoading}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
