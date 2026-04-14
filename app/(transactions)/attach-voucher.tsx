@@ -7,9 +7,7 @@ export default function AttachVoucherScreen() {
   const { handleSubmit } = useFormContext<ITransactionForm>();
   const { handleFinishTransaction, isLoading } = useTransactionSubmitFlow();
 
-  const onSubmit = handleSubmit(handleFinishTransaction, (errors) => {
-    console.log("Form Errors:", errors);
-  });
+  const onSubmit = handleSubmit(handleFinishTransaction);
 
   return <AttachVoucher onSubmit={onSubmit} isLoading={isLoading} />;
 }

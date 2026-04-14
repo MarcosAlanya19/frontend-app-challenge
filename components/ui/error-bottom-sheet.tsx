@@ -1,12 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import {
-  Animated,
-  Linking,
-  Modal,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Animated, Linking, Modal, Text, TouchableOpacity } from "react-native";
 import { useErrorStore } from "@/stores/use-error-store";
 
 const SUPPORT_WHATSAPP = "https://wa.me/51900000000";
@@ -58,7 +51,11 @@ export function ErrorBottomSheet() {
       onRequestClose={clearError}
     >
       <Animated.View
-        style={{ flex: 1, justifyContent: "flex-end", opacity: backdropOpacity }}
+        style={{
+          flex: 1,
+          justifyContent: "flex-end",
+          opacity: backdropOpacity,
+        }}
         className="bg-black/40"
       >
         <TouchableOpacity

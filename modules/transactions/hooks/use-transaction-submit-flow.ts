@@ -11,14 +11,7 @@ export function useTransactionSubmitFlow() {
     useTransactionStore();
 
   const handleFinishTransaction = async (data: ITransactionForm) => {
-    console.log("Finishing Transaction with data:", data);
-    if (!summary || !destinationAccount) {
-      console.log("Missing summary or destinationAccount:", {
-        summary,
-        destinationAccount,
-      });
-      return;
-    }
+    if (!summary || !destinationAccount) return;
 
     try {
       const transaction = await createTransaction.handle({
@@ -30,11 +23,9 @@ export function useTransactionSubmitFlow() {
         },
       });
 
-      console.log("Transaction created:", transaction);
-
       if (!transaction) return;
 
-      const result = await submitVoucher.handle({
+      await submitVoucher.handle({
         payload: {
           transactionId: transaction.transactionId,
           fileName: data.fileName,
@@ -42,11 +33,9 @@ export function useTransactionSubmitFlow() {
         },
       });
 
-      console.log("Voucher submitted:", result);
-
       router.push("/(transactions)/created");
-    } catch (error) {
-      console.error("Error in handleFinishTransaction:", error);
+    } catch {
+      // handled by useCustomMutation onError
     }
   };
 
