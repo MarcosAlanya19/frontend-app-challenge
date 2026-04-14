@@ -1,191 +1,133 @@
-# Prueba Técnica - Front-End Developer
+# Documentacion Tecnica - Kambista App
 
-## 📱 Introducción
+## Instrucciones de ejecucion
 
-Este reto técnico consiste en desarrollar una aplicación de conversión de divisas con autenticación, siguiendo los diseños proporcionados en este [Figma](https://www.figma.com/design/0r7lOY04Vv3Ht9UJItO7yX/Prueba?node-id=0-1&node-type=canvas&t=xY3A9Vp4Xe4zmQCW-0).
-  
-### 🔧 Stack Tecnológico
-| Categoría       | Tecnologías                |
-|-----------------|----------------------------|
-| Core            | Expo · React Native · TypeScript |
-| Estilos         | NativeWind                 |
-| Estado          | Zustand o Context API     |
-| API             | Axios o React Query        |
+```bash
+# Instalar dependencias
+npm install
 
-## 🎯 Objetivos de Evaluación
+# Iniciar servidor de desarrollo
+npx expo start
 
-**Calidad de código**: Arquitectura limpia, modularización y buenas prácticas  
-**Fidelidad al diseño**: Fidelidad y creatividad en la resolución de los requerimientos de diseño  
-**Performance**: Componentes optimizados y manejo eficiente de estado.    
-**Mantenibilidad**:  Prioriza legibilidad y escalabilidad, con estructura de archivos clara y consistente.
+# Ejecutar en Android
+npx expo start --android
 
-## 📋 Requerimientos funcionales
+# Ejecutar en iOS
+npx expo start --ios
 
-### 🔐 Módulo de Autenticación
-**Pantallas**:  
-- **Login**
-  - Formulario para el inicio de sesión de los usuarios. 
-  - Validación de campos en tiempo real  
-
-### 🔐 Módulo de Onboarding
-- **Datos personales**  
-  - Formulario para completar los datos personales del usuario
-  - Validación de campos en tiempo real      
-  - Manejo de errores específicos (ej: DNI duplicado)
-   ```json
-   // Ejemplo de error en servicio
-   {
-      "success": false,
-      "data": {
-         "name": "DUPLICATE_DNI",
-         "title": "DNI en uso",
-         "message": "El número de documento registrado ya está en uso."
-      }
-   }
-
-- **Registro exitoso**  
-  - Vista para indicar que todos los datos son correctos.
-
-### 💱 Módulo de Transacciones
-**Pantalla principal**:  
-- Calculadora PEN ↔ USD  
-- Consumo de API simulada para calcular una operación   
-- Consumo de API simulada para obtener datos de tipo de cambio   
-- Manejo de tasas de cambio dinámicas  
-- Cálculos en tiempo real  
-
-**Crear una operación**:  
-- Resumen de la operación creada.
-- Se deben seleccionar los bancos y el origen de fondos de acuerdo a mock anexo. 
-
-**Datos de transferencia**:  
-- Datos de la cuenta bancaria de Kambista.
-
-**Adjuntar voucher de depósito**:  
-- Formulario para adjuntar voucher bancario del depósito efectuado.
-
-**Transacción creada**:  
-- Resumen de la operación creada.
-
-### 💱 Módulo de Cuentas bancarias
-**Agregar cuenta**:  
-  - Formulario para agregar cuenta bancaria con:   
-        *Selector de banco* (usar mock proporcionado)   
-        *Tipo de cuenta* (ahorro/crédito)   
-        *Número de cuenta* (validación: solo dígitos)   
-  - Validación de campos en tiempo real  
-  - Ver listado de bancos a agregar en mock anexo.
-  
-
-### 🟰 Navegación
-
-Implementar un **Bottom Bar** para cambiar entre módulos principales
-
-### 🚨 Manejo de errores 
-### Estrategias a Implementar
-1. **Errores generales de los Formularios**:
-   - Validación en tiempo real para:
-     - Formato de email correcto.
-     - Nombre sin caracteres especiales ni números.
-     - Formato de documento de identificación acorde a DNI (8 dígitos), CE (9 dígitos), PASAPORTE (de 8 a 15 caracteres)
-     - Teléfono (9 dígitos)
-     - Fecha de nacimiento (Solo registro valido para mayores de edad)
-     - Número de cuenta bancaria solo dígitos.  
-     
-2. **Errores de API**:
-  - Considerar errores en servicios como:
-    - Número de documento o celular en uso
-    - Error general en la respuesta del servicio.
-
-```typescript
-interface APIError {
-  success: false;
-  data: {
-    name: 'DUPLICATE_DNI' | 'INVALID_PHONE' | 'SERVER_ERROR'; // Ejemplos
-    title: string;
-    message: string;
-  };
-}
-``` 
-
-## ⚙️ Requisitos Técnicos
-
-### 🛠️ Configuración
-- NativeWind para estilos  
-- Tipado estricto con TypeScript 
-- Simulación de API usando Axios o React Query.
-- Gestión del estado global usando Context API o Zustand.
-
-### 🧩 Componentes y vistas
-- Reutilización de UI
-- Props bien tipadas 
-- Simulación de calculadora de divisas con API de Kambista.
-- Navegación fluida entre pantallas
-
-### 🌐 Gestión de Estado
-- Manejo de estado global para:  
-  - Datos de una transacción
-  - Tasas de cambio 
-
-## Simulación de la API
-
-1. Endpoint para obtener el tipo de cambio:
-```
-https://api.kambista.com/v1/exchange/kambista/current
+# Generar APK
+eas build -p android --profile preview
 ```
 
-2. Endpoint para la calculadora:
+## Arquitectura del proyecto
+
 ```
-https://api.kambista.com/v1/exchange/calculates?originCurrency=PEN&destinationCurrency=USD&amount={cantidad}&active=S
+app/                          # Rutas (Expo Router - file-based routing)
+  (auth)/                     # Login
+  (onboarding)/               # Datos personales + Registro exitoso
+  (tabs)/                     # Bottom tabs (Inicio, Historial, Cuentas, Koinks, Perfil)
+  (transactions)/             # Flujo completo de operacion
+components/
+  form/                       # Componentes de formulario reutilizables (FormInput, FormSelect, etc.)
+  icons/                      # SVGs como componentes React
+  ui/                         # Componentes UI base (Button, Text, BottomSheet, etc.)
+constants/                    # Tema, colores
+enums/                        # Enumeraciones (ECurrency, EActiveField, etc.)
+hooks/                        # Hooks compartidos (useCustomMutation, useDebounce)
+lib/                          # Utilidades (axios, date/dayjs, currency, cn)
+mocks/                        # Datos mock (bankAccounts.json, sourceFunds.json)
+modules/
+  auth/                       # Login: componentes, servicios, schemas
+  home/                       # Calculadora: componentes, hooks, servicios, lib
+  onboarding/                 # Datos personales: componentes, servicios, schemas
+  transactions/               # Operaciones: componentes, hooks, servicios, constantes, tipos
+stores/                       # Estado global Zustand
+types/                        # Tipos compartidos (APIError)
 ```
 
+## Decisiones tecnicas
 
-## Mocks de data adicional
-Se incluyen dos archivos JSON con datos de prueba:
+### Estado global con Zustand
 
-1. **`bankAccounts.json`**  
-   - Listado completo de bancos  
-   - Uso:  
-     - Selector de banco al agregar cuenta  
-     - Elección de entidad financiera en operaciones  
+Se eligio Zustand sobre Context API por:
+- API minima sin boilerplate de providers anidados
+- Suscripciones granulares (los componentes solo re-renderizan cuando cambia lo que consumen)
+- Compatibilidad nativa con AsyncStorage para persistencia del auth store
 
-2. **`sourceFunds.json`**  
-   - Listado de orígenes de fondos  
-   - Uso:  
-     - Selector al crear operaciones   
+**Stores implementados:**
+| Store | Responsabilidad |
+|-------|----------------|
+| `use-auth-store` | Sesion del usuario, persistencia con AsyncStorage |
+| `use-transaction-store` | Resumen de operacion, cuentas bancarias, selecciones del flujo |
+| `use-exchange-rate-store` | Tasas de cambio actuales |
+| `use-error-store` | Estado de errores API para el ErrorBottomSheet global |
 
-> Los archivos se encuentran en `/mocks`.
+### Formularios con React Hook Form + Zod
 
-## 📤 Entrega
+Cada formulario tiene su archivo `index.schema.ts` con el schema de Zod, lo que permite:
+- Validacion en tiempo real (`mode: "all"` / `mode: "onChange"`)
+- Colocation de reglas con el componente
+- Inferencia de tipos directa con `z.infer<typeof schema>`
+- Validaciones complejas via `.superRefine()` (ej: tipo de documento condicional)
 
-### 🔗 Repositorio Github
+### React Query para datos del servidor
 
-1. Hacer fork del repositorio: [frontend-app-challenge](https://github.com/USERNAME/frontend-app-challenge)
-2. Clonar el fork:
-   ```
-   git clone git@github.com:USERNAME/FORKED-PROJECT.git
-   ```
-3. Crear un nuevo branch con tu nombre:
-   ```
-   git checkout -b {nombre-apellido}
-   ```
-4. Realizar commits con mensajes semánticos
-5. Documentar en README.md instrucciones de ejecución  
-6. Crear un Pull Request y notificar a talentohumano@kambista.com
+- `useExchangeRate`: query con `staleTime: 5min` y `retry: 2` para tasas de cambio
+- `useCustomMutation`: wrapper que centraliza el manejo de errores API y los muestra via `useErrorStore`
+- Separacion clara entre servicios (`*.service.ts`) y hooks de consumo (`use-*.ts`)
 
-### 📦 APK
+### Navegacion con Expo Router
 
-Generar y adjuntar un archivo APK usando Expo
+- File-based routing con grupos de rutas `(auth)`, `(onboarding)`, `(tabs)`, `(transactions)`
+- El flujo de transacciones comparte un `FormProvider` a nivel de layout para mantener estado del formulario entre pantallas (create -> transfer-data -> attach-voucher -> created)
+- Bottom tabs con iconos SVG custom
 
-## 🏆 Criterios de Evaluación
+### Estilos con NativeWind
 
-- Calidad de código
-- Buenas prácticas de programación
-- Manejo adecuado de errores
+- Tema centralizado en `constants/theme.ts` y `tailwind.config.js`
+- Fuente Montserrat (Regular, Medium, SemiBold, Bold) via `@expo-google-fonts/montserrat`
+- Componente `AppText` como wrapper que mapea sizes y weights a clases de Tailwind
 
-## 💡 Bonus (Opcional)
-- Animaciones
-- Agregar en la documentación (README.md) las decisiones técnicas relevantes  
----
+### Manejo de errores
 
-Para cualquier duda o consulta, por favor contactar a talentohumano@kambista.com
+- **Formularios**: validacion en tiempo real con mensajes especificos por campo
+- **API**: `ErrorBottomSheet` global que se activa desde cualquier mutation fallida via `useErrorStore`
+- **Errores tipados**: interfaz `APIError` con `name`, `title`, `message` para errores como `DUPLICATE_DNI`, `DUPLICATE_PHONE`, `DUPLICATE_EMAIL`
+- **Simulacion**: servicios de onboarding simulan verificacion de duplicados contra datos mock
+
+### Servicios mock vs reales
+
+| Servicio | Tipo | Detalle |
+|----------|------|---------|
+| Exchange rate | Real | `api.kambista.com/v1/exchange/kambista/current` |
+| Calculadora | Real | `api.kambista.com/v1/exchange/calculates` |
+| Login | Mock | Simula autenticacion con datos hardcodeados |
+| Registro | Mock | Verifica duplicados contra arrays en memoria |
+| Crear transaccion | Mock | Retorna `transactionId` fijo |
+| Submit voucher | Mock | Retorna `{ success: true }` |
+
+### Componentes reutilizables
+
+- **Form layer**: `FormInput`, `FormSelect`, `FormCheckbox`, `FormDateInput`, `FormPickerInput`, `FileUpload` — todos conectados a `useFormContext`
+- **UI layer**: `Button`, `Input`, `Select`, `Checkbox`, `Highlight`, `StepLayout`, `StepIndicator`, `Header`, `DetailRow`, `SelectBottomSheet`, `ErrorBottomSheet`
+- **Layout**: `StepLayout` unifica el patron de pantallas con steps (indicador + footer con boton)
+
+## Animaciones
+
+- **Bottom sheets** (select, errores, agregar cuenta): `SlideInDown`/`SlideOutDown` + `FadeIn`/`FadeOut` con `react-native-reanimated`
+- **Error bottom sheet**: animacion spring con `Animated.timing` nativo
+
+## Librerias principales
+
+| Libreria | Uso |
+|----------|-----|
+| `expo-router` | Navegacion file-based |
+| `nativewind` + `tailwindcss` | Estilos utility-first |
+| `zustand` | Estado global |
+| `@tanstack/react-query` | Cache y fetching de datos |
+| `react-hook-form` + `zod` | Formularios y validacion |
+| `axios` | Cliente HTTP |
+| `dayjs` | Manipulacion de fechas |
+| `expo-document-picker` | Seleccion de archivos (voucher) |
+| `react-native-reanimated` | Animaciones |
+| `expo-linear-gradient` | Gradientes (banner de descuentos) |
