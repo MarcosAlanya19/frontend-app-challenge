@@ -91,6 +91,8 @@ export const AddAccountModal = ({ visible, onClose, onSave }: IProps) => {
 
   const form = useForm<AddAccountFormValues>({
     resolver: zodResolver(addAccountSchema),
+    mode: "onChange",
+    reValidateMode: "onChange",
     defaultValues: {
       accountType: "",
       bankId: "",
@@ -137,7 +139,7 @@ export const AddAccountModal = ({ visible, onClose, onSave }: IProps) => {
 
   return (
     <Modal
-      visible
+      visible={visible}
       transparent
       animationType="none"
       statusBarTranslucent

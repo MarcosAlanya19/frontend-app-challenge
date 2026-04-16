@@ -18,7 +18,7 @@ interface SelectProps {
   value?: string;
   onSelect: (value: string) => void;
   placeholder?: string;
-  footer?: React.ReactNode;
+  footer?: React.ReactNode | ((helpers: { close: () => void }) => React.ReactNode);
   error?: string;
 }
 
@@ -34,6 +34,7 @@ export function Select({
 }: SelectProps) {
   const [sheetVisible, setSheetVisible] = useState(false);
   const selectedLabel = options.find((o) => o.value === value)?.label;
+  const closeSheet = () => setSheetVisible(false);
 
   return (
     <View>
@@ -72,10 +73,10 @@ export function Select({
         options={options}
         onSelect={(val) => {
           onSelect(val);
-          setSheetVisible(false);
+          closeSheet();
         }}
-        onClose={() => setSheetVisible(false)}
-        footer={footer}
+        onClose={closeSheet}
+        footer={typeof footer === "function" ? footer({ close: closeSheet }) : footer}
       />
     </View>
   );

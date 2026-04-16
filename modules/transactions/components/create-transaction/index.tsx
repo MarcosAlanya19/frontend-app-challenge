@@ -86,9 +86,12 @@ export const CreateTransaction = ({
             label="¿En qué cuenta deseas recibir tu dinero?"
             sheetTitle="Selecciona tu cuenta destino"
             options={accountOptions}
-            footer={
+            footer={({ close }) => (
               <Pressable
-                onPress={onAddAccount}
+                onPress={() => {
+                  close();
+                  requestAnimationFrame(onAddAccount);
+                }}
                 className="flex-row items-center gap-sm px-base py-md"
               >
                 <View className="w-10 h-10 rounded-md border border-gray-25 items-center justify-center">
@@ -98,7 +101,7 @@ export const CreateTransaction = ({
                   Agregar cuenta
                 </AppText>
               </Pressable>
-            }
+            )}
           />
 
           <Highlight variant="warning">

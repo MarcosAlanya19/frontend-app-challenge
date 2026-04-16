@@ -1,5 +1,6 @@
 import { AppText } from "@/components/ui/text";
 import { Colors } from "@/constants/theme";
+import { formatRate } from "@/lib/currency";
 import { CURRENCY_SYMBOL } from "@/enums/currency";
 import { View } from "react-native";
 import { ITransactionSummary as TransactionSummaryType } from "../../types";
@@ -43,10 +44,10 @@ export function TransactionSummary({ summary }: IProps) {
             weight="bold"
             style={{ color: Colors.red, textDecorationLine: "line-through" }}
           >
-            {summary.buyRate.toFixed(3)}
+            {formatRate(summary.buyRate)}
           </AppText>
           <AppText size="sm" weight="bold" color="secondary">
-            {summary.sellRate.toFixed(3)}
+            {formatRate(summary.sellRate)}
           </AppText>
         </View>
       </View>

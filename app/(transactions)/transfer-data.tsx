@@ -1,3 +1,4 @@
+import { ROUTES } from "@/constants/routes";
 import { getUpdateTime } from "@/lib/date";
 import { TransferData } from "@/modules/transactions/components/transfer-data";
 import { KAMBISTA_ACCOUNT } from "@/modules/transactions/constants/kambista-account";
@@ -13,7 +14,7 @@ export default function TransferDataScreen() {
   };
 
   const handleConfirm = () => {
-    router.push("/(transactions)/attach-voucher");
+    router.push(ROUTES.transactions.attachVoucher);
   };
 
   return (

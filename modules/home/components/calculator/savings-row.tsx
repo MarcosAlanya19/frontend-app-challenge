@@ -1,4 +1,5 @@
 import { AppText } from "@/components/ui/text";
+import { formatKoins } from "@/lib/currency";
 import { View } from "react-native";
 
 interface SavingsRowProps {
@@ -23,7 +24,7 @@ export function SavingsRow({ savings, koins }: SavingsRowProps) {
           Koins
         </AppText>
         <AppText size="base" color="secondary" weight="semibold">
-          {koins.toLocaleString()}
+          {formatKoins(koins)}
         </AppText>
       </View>
     </View>

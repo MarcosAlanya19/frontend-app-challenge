@@ -1,3 +1,4 @@
+import { ROUTES } from "@/constants/routes";
 import { TransactionCreated } from "@/modules/transactions/components/transaction-created";
 import { useTransactionStore } from "@/stores/use-transaction-store";
 import { router } from "expo-router";
@@ -9,7 +10,7 @@ export default function TransactionCreatedScreen() {
 
   const handleGoHome = () => {
     reset();
-    router.replace("/(tabs)");
+    router.replace(ROUTES.tabs);
   };
 
   return (

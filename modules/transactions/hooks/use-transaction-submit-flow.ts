@@ -1,3 +1,4 @@
+import { ROUTES } from "@/constants/routes";
 import { useTransactionStore } from "@/stores/use-transaction-store";
 import { router } from "expo-router";
 import { ITransactionForm } from "../types/ITransactionForm.type";
@@ -35,7 +36,7 @@ export function useTransactionSubmitFlow() {
         },
       });
 
-      router.push("/(transactions)/created");
+      router.push(ROUTES.transactions.created);
     } catch {
       // handled by useCustomMutation onError
     }

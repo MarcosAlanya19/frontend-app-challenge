@@ -1,6 +1,7 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import { View, Image } from "react-native";
 import { AppText } from "@/components/ui/text";
+import { ROUTES } from "@/constants/routes";
 import { useLocalSearchParams, router } from "expo-router";
 import { Button } from "@/components/ui/button";
 
@@ -45,7 +46,7 @@ export default function SuccessScreen() {
             </AppText>
           </View>
 
-          <Button label="Continuar" onPress={() => router.replace("/(tabs)")} />
+          <Button label="Continuar" onPress={() => router.replace(ROUTES.tabs)} />
         </View>
       </View>
     </SafeAreaView>

@@ -1,5 +1,6 @@
 import { LogoSVG } from "@/components/icons/logo-svg";
 import { AppText } from "@/components/ui/text";
+import { ROUTES } from "@/constants/routes";
 import { LoginForm } from "@/modules/auth/components/login-form";
 import {
   ILoginFormData,
@@ -15,7 +16,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function LoginScreen() {
   const methods = useForm<ILoginFormData>({
     resolver: zodResolver(loginSchema),
-    mode: "all",
+    mode: "onChange",
+    reValidateMode: "onChange",
     defaultValues: {
       email: "",
       password: "",
@@ -28,10 +30,8 @@ export default function LoginScreen() {
   const onSubmit = methods.handleSubmit(async (data: ILoginFormData) => {
     const success = await handle({ payload: data });
     if (success) {
-      router.replace("/(tabs)");
-      return;
+      router.replace(ROUTES.tabs);
     }
-    methods.setError("root", { message: "Correo o contraseña incorrectos" });
   });
 
   return (
@@ -47,7 +47,7 @@ export default function LoginScreen() {
           methods={methods}
           onSubmit={onSubmit}
           onForgotPassword={() => {}}
-          onRegister={() => router.push("/(onboarding)/personal-data")}
+          onRegister={() => router.push(ROUTES.onboarding.personalData)}
         />
       </View>
     </SafeAreaView>

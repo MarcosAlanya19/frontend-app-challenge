@@ -1,5 +1,6 @@
 import { AppText } from "@/components/ui/text";
 import { Colors } from "@/constants/theme";
+import { formatRate } from "@/lib/currency";
 import { ActivityIndicator, Pressable } from "react-native";
 
 interface RateTabProps {
@@ -30,7 +31,7 @@ export function RateTab({
         />
       ) : (
         <AppText size="base" weight="bold" color={active ? "white" : "gray-60"}>
-          {label}: {rate.toFixed(3)}
+          {label}: {rate > 0 ? formatRate(rate) : '—'}
         </AppText>
       )}
     </Pressable>

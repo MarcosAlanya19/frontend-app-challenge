@@ -1,3 +1,4 @@
+import { ROUTES } from "@/constants/routes";
 import banks from "@/mocks/bankAccounts.json";
 import sourceFunds from "@/mocks/sourceFunds.json";
 import { AddAccountModal } from "@/modules/transactions/components/add-account-modal";
@@ -12,7 +13,7 @@ import { useFormContext } from "react-hook-form";
 
 export default function CreateTransactionScreen() {
   const { summary, accounts, addAccount } = useTransactionStore();
-  const { getValues } = useFormContext<ITransactionForm>();
+  const { getValues, setValue } = useFormContext<ITransactionForm>();
   const [addAccountVisible, setAddAccountVisible] = useState(false);
 
   const bankOptions = useMemo(
@@ -47,7 +48,7 @@ export default function CreateTransactionScreen() {
       accounts.find((a) => a.id === destinationAccountId)!,
     );
     store.setSourceFundId(sourceFundId);
-    router.push("/(transactions)/transfer-data");
+    router.push(ROUTES.transactions.transferData);
   };
 
   return (
@@ -66,14 +67,20 @@ export default function CreateTransactionScreen() {
         onSave={(account) => {
           const bankName =
             (banks as Bank[]).find((b) => b.id === account.bankId)?.name ?? "";
+          const newAccountId = Date.now().toString();
           addAccount({
-            id: Date.now().toString(),
+            id: newAccountId,
             bankId: account.bankId,
             bankName,
             alias: account.alias,
             accountNumber: account.accountNumber,
             currency: account.currency,
             type: account.accountType,
+          });
+          setValue("destinationAccountId", newAccountId, {
+            shouldDirty: true,
+            shouldTouch: true,
+            shouldValidate: true,
           });
           setAddAccountVisible(false);
         }}

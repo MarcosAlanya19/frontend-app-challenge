@@ -1,3 +1,4 @@
+import { ROUTES } from "@/constants/routes";
 import { EActiveField } from "@/enums/active-field";
 import { ECurrency } from "@/enums/currency";
 import { formatMoney } from "@/lib/currency";
@@ -67,7 +68,7 @@ export default function HomeScreen() {
       buyRate: exchangeRate.data?.bid ?? 0,
       sellRate: exchangeRate.data?.ask ?? 0,
     });
-    router.push("/(transactions)/create");
+    router.push(ROUTES.transactions.create);
   };
 
   return (

@@ -48,7 +48,7 @@ export function SelectBottomSheet({
 
   return (
     <Modal
-      visible
+      visible={visible}
       transparent
       animationType="none"
       statusBarTranslucent

@@ -1,4 +1,5 @@
 import { Header } from "@/components/ui/header";
+import { ROUTES } from "@/constants/routes";
 import { Colors } from "@/constants/theme";
 import { PersonalDataForm } from "@/modules/onboarding/components/personal-data-form";
 import {
@@ -18,6 +19,7 @@ export default function PersonalDataScreen() {
   const methods = useForm<PersonalDataFormData>({
     resolver: zodResolver(personalDataSchema),
     mode: "onChange",
+    reValidateMode: "onChange",
     defaultValues: {
       fullName: "",
       documentType: "",
@@ -46,13 +48,13 @@ export default function PersonalDataScreen() {
     });
 
     router.push({
-      pathname: "/(onboarding)/success",
+      pathname: ROUTES.onboarding.success,
       params: { name: data.fullName.split(" ")[0], email },
     });
   });
 
   const handleBack = () => router.back();
-  const handleExit = () => router.replace("/(auth)");
+  const handleExit = () => router.replace(ROUTES.auth);
 
   return (
     <SafeAreaView className="flex-1 bg-white">

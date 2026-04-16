@@ -6,6 +6,7 @@ export interface APIError {
       | "DUPLICATE_PHONE"
       | "DUPLICATE_EMAIL"
       | "INVALID_PHONE"
+      | "INVALID_CREDENTIALS"
       | "SERVER_ERROR";
     title: string;
     message: string;

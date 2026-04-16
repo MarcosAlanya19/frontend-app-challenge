@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { AppText } from "@/components/ui/text";
+import { ROUTES } from "@/constants/routes";
 import { useAuthStore } from "@/stores/use-auth-store";
 import { router } from "expo-router";
 import { View } from "react-native";
@@ -10,7 +11,7 @@ export default function ProfileScreen() {
 
   const handleLogout = () => {
     logout();
-    router.replace("/(auth)");
+    router.replace(ROUTES.auth);
   };
 
   return (

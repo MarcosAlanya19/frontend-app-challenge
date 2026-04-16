@@ -5,6 +5,7 @@ import { FormProvider, useForm } from "react-hook-form";
 export default function TransactionsLayout() {
   const methods = useForm<ITransactionForm>({
     mode: "onChange",
+    reValidateMode: "onChange",
     defaultValues: {
       sourceBankId: "",
       destinationAccountId: "",

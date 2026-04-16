@@ -20,7 +20,7 @@ import Animated, {
 import { Ionicons } from "@expo/vector-icons";
 import { AppText } from "@/components/ui/text";
 import { Colors } from "@/constants/theme";
-import { dateToDMY, dmyToDate } from "@/lib/date";
+import { dateToDMY, dmyToDate, getToday } from "@/lib/date";
 import { cn } from "@/lib/cn";
 
 interface FormDateInputProps {
@@ -41,7 +41,7 @@ export function FormDateInput({
 
   const [visible, setVisible] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const [tempDate, setTempDate] = useState<Date>(new Date());
+  const [tempDate, setTempDate] = useState<Date>(getToday());
 
   const handleOpen = () => {
     setTempDate(dmyToDate(field.value));
@@ -108,7 +108,7 @@ export function FormDateInput({
           value={tempDate}
           mode="date"
           display="default"
-          maximumDate={new Date()}
+          maximumDate={getToday()}
           onChange={handleAndroidChange}
         />
       )}
@@ -171,7 +171,7 @@ export function FormDateInput({
                   value={tempDate}
                   mode="date"
                   display="spinner"
-                  maximumDate={new Date()}
+                  maximumDate={getToday()}
                   locale="es-PE"
                   style={{ height: 200 }}
                   onChange={(_, date) => {

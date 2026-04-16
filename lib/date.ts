@@ -30,3 +30,6 @@ export const dmyToDate = (dmy: string): Date =>
 
 /** Returns current time formatted as HH:mm */
 export const getUpdateTime = (): string => dayjs().format("HH:mm");
+
+/** Returns today as a Date object (for pickers and max/min bounds) */
+export const getToday = (): Date => dayjs().toDate();
