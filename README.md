@@ -2,7 +2,7 @@
 
 ## Descarga
 
-- **APK Android**: [Descargar desde Expo](https://expo.dev/accounts/marcosalanya/projects/frontend-app-challenge/builds/2761a22d-4d0b-4e5c-9745-a604a7bdc145)
+- **APK Android**: [Descargar desde Expo](https://expo.dev/accounts/marcosalanya/projects/frontend-app-challenge/builds/c7e9a168-aad0-4575-83d1-8f0d6c0a1b05)
 - El archivo `app.apk` tambien se encuentra en la raiz del proyecto para instalacion directa.
 
 ## Instrucciones de ejecucion
