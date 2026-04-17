@@ -30,7 +30,7 @@ export function Input({
   return (
     <View className="gap-1">
       {label && (
-        <AppText size="sm" weight="regular" color="gray-60">
+        <AppText size="base" weight="medium" color="gray-60">
           {label}
         </AppText>
       )}

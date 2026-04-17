@@ -43,7 +43,7 @@ const CurrencyToggle = () => {
 
   return (
     <View className="gap-sm">
-      <AppText size="base" color="secondary" weight="medium">
+      <AppText size="base" color="gray-60" weight="medium">
         Moneda
       </AppText>
       <View className="flex-row gap-sm">

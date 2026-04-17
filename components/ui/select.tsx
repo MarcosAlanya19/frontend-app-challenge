@@ -18,7 +18,9 @@ interface SelectProps {
   value?: string;
   onSelect: (value: string) => void;
   placeholder?: string;
-  footer?: React.ReactNode | ((helpers: { close: () => void }) => React.ReactNode);
+  footer?:
+    | React.ReactNode
+    | ((helpers: { close: () => void }) => React.ReactNode);
   error?: string;
 }
 
@@ -39,7 +41,7 @@ export function Select({
   return (
     <View>
       <View className="gap-sm">
-        <AppText size="base" color="secondary" weight="medium">
+        <AppText size="base" color="gray-60" weight="medium">
           {label}
         </AppText>
         <Pressable
@@ -76,7 +78,9 @@ export function Select({
           closeSheet();
         }}
         onClose={closeSheet}
-        footer={typeof footer === "function" ? footer({ close: closeSheet }) : footer}
+        footer={
+          typeof footer === "function" ? footer({ close: closeSheet }) : footer
+        }
       />
     </View>
   );

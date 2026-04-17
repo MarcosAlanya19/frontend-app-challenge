@@ -10,6 +10,9 @@
     },
     "preview": {
       "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_BASE_URL": "https://api.kambista.com/v1"
+      },
       "android": {
         "buildType": "apk"
       },

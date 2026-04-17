@@ -183,7 +183,7 @@ export function Calculator({
           <Button
             label="Iniciar operación"
             onPress={handleStartTransaction}
-            disabled={isLoading}
+            disabled={isLoading || !(parseFloat(sendAmount) > 0) || !(parseFloat(receiveAmount) > 0)}
           />
         </View>
       </ScrollView>

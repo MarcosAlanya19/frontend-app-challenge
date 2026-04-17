@@ -14,7 +14,9 @@ interface FormSelectProps<T extends FieldValues> extends Omit<
   sheetTitle: string;
   options: ISelectOption[];
   placeholder?: string;
-  footer?: React.ReactNode | ((helpers: { close: () => void }) => React.ReactNode);
+  footer?:
+    | React.ReactNode
+    | ((helpers: { close: () => void }) => React.ReactNode);
 }
 
 export function FormSelect<T extends FieldValues>({
